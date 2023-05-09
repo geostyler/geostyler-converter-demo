@@ -1,24 +1,23 @@
 import Editor from "@monaco-editor/react";
-import MapboxParser from "geostyler-mapbox-parser";
-import QGISStyleParser from "geostyler-qgis-parser";
+import MapboxStyleParser from "geostyler-mapbox-parser";
 import SLDParser from "geostyler-sld-parser";
 import { useState } from "react";
 import logo from "./assets/images/logo.svg";
 import "./assets/styles/App.scss";
 
-const getParser = (styleFormat) => {
+const getParser = (styleFormat: string) => {
     let parser = null;
     switch (styleFormat) {
         case "mapbox":
-            parser = new MapboxParser({ pretty: true });
+            parser = new MapboxStyleParser({ pretty: true });
             break;
         case "sld":
             parser = new SLDParser({ builderOptions: { format: true } });
             break;
-        case "qgis":
-        case "qml":
-            parser = new QGISStyleParser();
-            break;
+        // case "qgis":
+        // case "qml":
+        //     parser = new QGISStyleParser();
+        //     break;
         default:
             break;
     }
@@ -34,7 +33,7 @@ function App() {
     const [rightEditorText, setRightEditorText] = useState("");
     const rightParser = getParser(rightStyleFormat);
 
-    const handleLeftEditorTextChange = (leftEditorText) => {
+    const handleLeftEditorTextChange = (leftEditorText: string) => {
         leftParser
             ?.readStyle(leftEditorText)
             .then((gStyle) => {
@@ -56,7 +55,7 @@ function App() {
             .catch((error) => console.error(error));
     };
 
-    const handleRightEditorTextChange = (rightEditorText) => {
+    const handleRightEditorTextChange = (rightEditorText: string) => {
         rightParser
             ?.readStyle(rightEditorText)
             .then((gStyle) => {
