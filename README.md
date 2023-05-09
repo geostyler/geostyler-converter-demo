@@ -11,25 +11,25 @@ For a more complete demo of Geostyler's capabilities, see [geostyler/geostyler-d
 -   Install the node.js dependencies
 
 ```
-yarn install
+npm install
 ```
 
 -   Start the application in development mode
 
 ```
-yarn dev
+npm run dev
 ```
 
 -   Generate a production build
 
 ```
-yarn build
+npm run build
 ```
 
 -   Start the production build application
 
 ```
-yarn preview
+npm run preview
 ```
 
 ### Misc.
@@ -37,11 +37,11 @@ yarn preview
 -   Lint
 
 ```
-yarn lint
+npm run lint
 ```
 
 -   Code formatting
 
 ```
-yarn format
+npm run format
 ```
