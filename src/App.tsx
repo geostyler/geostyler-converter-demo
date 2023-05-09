@@ -3,6 +3,8 @@ import MapboxParser from "geostyler-mapbox-parser";
 import QGISStyleParser from "geostyler-qgis-parser";
 import SLDParser from "geostyler-sld-parser";
 import { useState } from "react";
+import logo from "./assets/images/logo.svg";
+import "./assets/styles/App.scss";
 
 const getParser = (styleFormat) => {
     let parser = null;
@@ -77,8 +79,16 @@ function App() {
     };
 
     return (
-        <>
-            <h1>Geostyler Converter Demo</h1>
+        <div className="app">
+            <header className="gs-header">
+                <h1 className="app-title">
+                    <img className="logo" src={logo} alt="logo" />
+                    <span>Geostyler Converter Demo</span>
+                </h1>
+                <a href="https://geostyler.github.io/geostyler-demo" target="_blank">
+                    Geostyler demo
+                </a>
+            </header>
 
             <div className="style-editor-container">
                 <Editor
@@ -94,7 +104,7 @@ function App() {
                     onChange={handleRightEditorTextChange}
                 />
             </div>
-        </>
+        </div>
     );
 }
 
