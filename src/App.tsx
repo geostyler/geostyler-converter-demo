@@ -1,109 +1,181 @@
-import Editor from '@monaco-editor/react';
 import MapboxStyleParser from 'geostyler-mapbox-parser';
 import SLDParser from 'geostyler-sld-parser';
+import QgisStyleParser from 'geostyler-qgis-parser';
+
 import { useState } from 'react';
+import { ConfigProvider, Form, Select } from 'antd';
+
+import { CodeEditor, GeoStylerLocale, locale as GsLocale } from 'geostyler';
+
+import { Style as GsStyle } from 'geostyler-style';
+
 import logo from './assets/images/logo.svg';
 import './assets/styles/App.scss';
 
-const getParser = (styleFormat: string) => {
-    let parser = null;
-    switch (styleFormat) {
-        case 'mapbox':
-            parser = new MapboxStyleParser({ pretty: true });
-            break;
-        case 'sld':
-            parser = new SLDParser({ builderOptions: { format: true } });
-            break;
-        // case "qgis":
-        // case "qml":
-        //     parser = new QGISStyleParser();
-        //     break;
-        default:
-            break;
-    }
-    return parser;
-};
+export interface Locale extends GeoStylerLocale {
+    language: string;
+}
 
 function App() {
-    const [leftStyleFormat, setLeftStyleFormat] = useState('sld');
-    const [leftEditorText, setLeftEditorText] = useState('');
-    const leftParser = getParser(leftStyleFormat);
+    const [locale, setLocale] = useState<Locale>({
+        language: 'Language',
+        ...GsLocale.en_US,
+    });
 
-    const [rightStyleFormat, setRightStyleFormat] = useState('mapbox');
-    const [rightEditorText, setRightEditorText] = useState('');
-    const rightParser = getParser(rightStyleFormat);
-
-    const handleLeftEditorTextChange = (leftEditorText: string) => {
-        leftParser
-            ?.readStyle(leftEditorText)
-            .then((gStyle) => {
-                if ('errors' in gStyle || gStyle?.errors?.length > 0) {
-                    console.error(gStyle.errors);
-                } else {
-                    rightParser
-                        ?.writeStyle(gStyle.output)
-                        .then((rStyle) => {
-                            if ('errors' in rStyle || rStyle?.errors?.length > 0) {
-                                console.error(rStyle.errors);
-                            } else {
-                                setRightEditorText(rStyle.output);
-                            }
-                        })
-                        .catch((error) => console.error(error));
-                }
-            })
-            .catch((error) => console.error(error));
+    const onLangChange = (lang: 'en' | 'de' | 'es' | 'fr' | 'ch-zn') => {
+        switch (lang) {
+            case 'en':
+                setLocale({
+                    language: 'Language',
+                    ...GsLocale.en_US,
+                });
+                break;
+            case 'de':
+                setLocale({
+                    language: 'Sprache',
+                    ...GsLocale.de_DE,
+                });
+                break;
+            case 'fr':
+                setLocale({
+                    language: 'Langue',
+                    ...GsLocale.fr_FR,
+                });
+                break;
+            case 'es':
+                setLocale({
+                    language: 'Idioma',
+                    ...GsLocale.es_ES,
+                });
+                break;
+            case 'ch-zn':
+                setLocale({
+                    language: '语言',
+                    ...GsLocale.zh_CN,
+                });
+                break;
+            default:
+                break;
+        }
     };
 
-    const handleRightEditorTextChange = (rightEditorText: string) => {
-        rightParser
-            ?.readStyle(rightEditorText)
-            .then((gStyle) => {
-                if ('errors' in gStyle || gStyle?.errors?.length > 0) {
-                    console.error(gStyle.errors);
-                } else {
-                    leftParser
-                        ?.writeStyle(gStyle.output)
-                        .then((lStyle) => {
-                            if ('errors' in lStyle || lStyle?.errors?.length > 0) {
-                                console.error(lStyle.errors);
-                            } else {
-                                setLeftEditorText(lStyle.output);
-                            }
-                        })
-                        .catch((error) => console.error(error));
-                }
-            })
-            .catch((error) => console.error(error));
+    const defaultStyle: GsStyle = {
+        name: 'Demo Style',
+        rules: [
+            {
+                name: 'Rule 1',
+                symbolizers: [
+                    {
+                        kind: 'Line',
+                        color: '#ff0000',
+                        width: 5,
+                    },
+                ],
+            },
+        ],
     };
+
+    const [style, setStyle] = useState(defaultStyle);
+
+    const sldParser = new SLDParser({
+        sldVersion: '1.1.0',
+        builderOptions: {
+            format: true,
+        },
+    });
+
+    const mapboxStyleParser = new MapboxStyleParser({
+        pretty: true,
+    });
+
+    const qgisStyleParser = new QgisStyleParser();
+
+    console.log(locale);
 
     return (
-        <div className="app">
-            <header className="gs-header">
-                <h1 className="app-title">
-                    <img className="logo" src={logo} alt="logo" />
-                    <span>Geostyler Converter Demo</span>
-                </h1>
-                <a href="https://geostyler.github.io/geostyler-demo" target="_blank">
-                    Geostyler demo
-                </a>
-            </header>
+        <ConfigProvider locale={locale}>
+            <div className="app">
+                <header className="gs-header">
+                    <h1 className="app-title">
+                        <img className="logo" src={logo} alt="logo" />
+                        <span>Geostyler Converter Demo</span>
+                    </h1>
+                    <a href="https://geostyler.github.io/geostyler-demo" target="_blank">
+                        Geostyler demo
+                    </a>
+                </header>
 
-            <div className="style-editor-container">
-                <Editor
-                    height="90vh"
-                    defaultLanguage={leftStyleFormat === 'mapbox' ? 'json' : 'xml'}
-                    value={leftEditorText}
-                    onChange={handleLeftEditorTextChange}
-                />
-                <Editor
-                    height="90vh"
-                    defaultLanguage={rightStyleFormat === 'mapbox' ? 'json' : 'xml'}
-                    value={rightEditorText}
-                    onChange={handleRightEditorTextChange}
-                />
+                <div className="gs-content">
+                    <div className="code-editor-column">
+                        <div className="code-editor-container">
+                            <CodeEditor
+                                style={style}
+                                locale={locale.CodeEditor}
+                                parsers={[sldParser, qgisStyleParser, mapboxStyleParser]}
+                                defaultParser={sldParser}
+                                showCopyButton={true}
+                                showSaveButton={true}
+                                onStyleChange={(style: GsStyle) => {
+                                    setStyle(style);
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div className="code-editor-column">
+                        <div className="code-editor-container">
+                            <CodeEditor
+                                style={style}
+                                locale={locale.CodeEditor}
+                                parsers={[sldParser, qgisStyleParser, mapboxStyleParser]}
+                                defaultParser={mapboxStyleParser}
+                                showCopyButton={true}
+                                showSaveButton={true}
+                                onStyleChange={(style: GsStyle) => {
+                                    setStyle(style);
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <footer className="gs-footer">
+                    <Form layout="inline" className="lang-form">
+                        <Form.Item label={locale.language}>
+                            <Select
+                                defaultValue={'en'}
+                                onChange={onLangChange}
+                                showArrow={true}
+                                style={{
+                                    width: '140px',
+                                }}
+                                options={[
+                                    {
+                                        label: '🇨🇳 Chinese (中文)',
+                                        value: 'ch-zn',
+                                    },
+                                    {
+                                        label: '🇺🇸 English',
+                                        value: 'en',
+                                    },
+                                    {
+                                        label: '🇩🇪 German',
+                                        value: 'de',
+                                    },
+                                    {
+                                        label: '🇪🇸 Spanish',
+                                        value: 'es',
+                                    },
+                                    {
+                                        label: '🇫🇷 French',
+                                        value: 'fr',
+                                    },
+                                ]}
+                            />
+                        </Form.Item>
+                    </Form>
+                </footer>
             </div>
-        </div>
+        </ConfigProvider>
     );
 }
 
