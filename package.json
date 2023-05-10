@@ -11,13 +11,12 @@
         "format": "prettier --write src/"
     },
     "dependencies": {
-        "@monaco-editor/react": "^4.5.1",
         "antd": "^5.4.7",
+        "geostyler": "^13.0.0-beta.0",
         "geostyler-mapbox-parser": "^3.1.1",
         "geostyler-qgis-parser": "^2.0.0",
         "geostyler-sld-parser": "^5.0.1",
         "geostyler-style": "^7.2.0",
-        "monaco-editor": "^0.38.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "sass": "^1.62.1"

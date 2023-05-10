@@ -16,10 +16,11 @@ html {
     height: 100%;
 }
 
-body {
+div.app {
     display: flex;
     flex-direction: column;
     font-size: 14px;
+    min-height: 100vh;
 }
 
 header.gs-header {
@@ -27,7 +28,7 @@ header.gs-header {
     color: #162162;
     font-family: 'Aldrich', sans-serif;
     font-size: 1.3em;
-    padding-bottom: 10px;
+    padding: 0.6em;
     text-align: center;
 
     .logo {
@@ -47,6 +48,30 @@ header.gs-header {
     }
 }
 
-.style-editor-container {
+.gs-content {
     display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+
+    .code-editor-column {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        .code-editor-container {
+            max-height: 85vh;
+            flex-grow: 1;
+        }
+    }
+}
+
+footer.gs-footer {
+    background-color: #bec4e3;
+    border-top: 3px solid #162162;
+    min-height: 42px;
+    padding: 0.6em;
+
+    form.lang-form {
+        float: right;
+    }
 }
