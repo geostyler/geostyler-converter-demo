@@ -90,8 +90,6 @@ function App() {
 
     const qgisStyleParser = new QgisStyleParser();
 
-    console.log(locale);
-
     return (
         <ConfigProvider locale={locale}>
             <div className="app">
