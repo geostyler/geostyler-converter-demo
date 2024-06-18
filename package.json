@@ -32,7 +32,7 @@
     "eslint-plugin-react-refresh": "^0.4.0",
     "prettier": "^3.0.0",
     "typescript": "^5.4.5",
-    "vite": "^4.3.2"
+    "vite": "^5.0.0"
   },
   "funding": "https://opencollective.com/geostyler"
 }
