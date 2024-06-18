@@ -4,7 +4,9 @@
     font-style: normal;
     font-weight: 400;
     src: url('../fonts/aldrich/aldrich-v8-latin-regular.eot'); /* IE9 Compat Modes */
-    src: local('Aldrich Regular'), local('Aldrich-Regular'),
+    src:
+        local('Aldrich Regular'),
+        local('Aldrich-Regular'),
         url('../fonts/aldrich/aldrich-v8-latin-regular.eot?#iefix') format('embedded-opentype'),
         /* IE6-IE8 */ url('../fonts/aldrich/aldrich-v8-latin-regular.woff2') format('woff2'),
         /* Super Modern Browsers */ url('../fonts/aldrich/aldrich-v8-latin-regular.woff') format('woff'),
@@ -66,12 +68,16 @@ header.gs-header {
 }
 
 footer.gs-footer {
+    grid-area: footer;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: #bec4e3;
     border-top: 3px solid #162162;
-    min-height: 42px;
-    padding: 0.6em;
+    font-family: 'Aldrich', sans-serif;
 
-    form.lang-form {
-        float: right;
+    .geostyler-version {
+        margin: 0 10px;
     }
 }

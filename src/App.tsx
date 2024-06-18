@@ -91,7 +91,7 @@ export const App: React.FC = () => {
     const qgisStyleParser = new QgisStyleParser();
 
     const ctx: GeoStylerContextInterface = {
-        locale
+        locale,
     };
 
     return (
@@ -139,6 +139,12 @@ export const App: React.FC = () => {
                 </div>
 
                 <footer className="gs-footer">
+                    <span className="geostyler-version">
+                        <a href={`https://github.com/geostyler/geostyler/releases/tag/v${GEOSTYLER_VERSION}`}>
+                            GeoStyler v{GEOSTYLER_VERSION}
+                        </a>
+                    </span>
+
                     <Form layout="inline" className="lang-form">
                         <Form.Item label={locale.language}>
                             <Select
@@ -149,7 +155,7 @@ export const App: React.FC = () => {
                                 }}
                                 options={[
                                     {
-                                        label: '🇨🇳 Chinese (中文)',
+                                        label: '🇨🇳 中文',
                                         value: 'ch-zn',
                                     },
                                     {
@@ -157,15 +163,15 @@ export const App: React.FC = () => {
                                         value: 'en',
                                     },
                                     {
-                                        label: '🇩🇪 German',
+                                        label: '🇩🇪 Deutsch',
                                         value: 'de',
                                     },
                                     {
-                                        label: '🇪🇸 Spanish',
+                                        label: '🇪🇸 Español',
                                         value: 'es',
                                     },
                                     {
-                                        label: '🇫🇷 French',
+                                        label: '🇫🇷 Français',
                                         value: 'fr',
                                     },
                                 ]}
