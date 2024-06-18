@@ -1,8 +1,8 @@
 # geostyler-converter-demo
 
-The converter demo is a simple interface showing two code editors side by side and allowing conversions from one style format (SLD, QML, Mapbox Syle...) to another using Geostyler style parsers.
+The converter demo is a simple interface showing two code editors side by side and allowing conversions from one style format (SLD, QML, Mapbox Syle...) to another using GeoStyler style parsers.
 
-For a more complete demo of Geostyler's capabilities, see [geostyler/geostyler-demo](https://github.com/geostyler/geostyler-demo).
+For a more complete demo of GeoStyler's capabilities, see [geostyler/geostyler-demo](https://github.com/geostyler/geostyler-demo).
 
 ## Documentation
 

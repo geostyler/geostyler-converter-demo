@@ -96,10 +96,10 @@ function App() {
                 <header className="gs-header">
                     <h1 className="app-title">
                         <img className="logo" src={logo} alt="logo" />
-                        <span>Geostyler Converter Demo</span>
+                        <span>GeoStyler Converter Demo</span>
                     </h1>
                     <a href="https://geostyler.github.io/geostyler-demo" target="_blank">
-                        Geostyler demo
+                        Full GeoStyler Demo
                     </a>
                 </header>
 
