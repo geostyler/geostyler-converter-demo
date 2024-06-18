@@ -12,11 +12,11 @@
   },
   "dependencies": {
     "antd": "^5.4.7",
-    "geostyler": "^13.0.0-beta.0",
-    "geostyler-mapbox-parser": "^3.1.1",
+    "geostyler": "^14.1.4",
+    "geostyler-mapbox-parser": "^5.0.1",
     "geostyler-qgis-parser": "^2.0.0",
-    "geostyler-sld-parser": "^5.0.1",
-    "geostyler-style": "^7.2.0",
+    "geostyler-sld-parser": "^5.3.1",
+    "geostyler-style": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.62.1"
@@ -31,7 +31,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.0",
     "prettier": "^2.8.8",
-    "typescript": "^5.0.2",
+    "typescript": "^5.4.5",
     "vite": "^4.3.2"
   },
   "funding": "https://opencollective.com/geostyler"

@@ -3,9 +3,9 @@ import SLDParser from 'geostyler-sld-parser';
 import QgisStyleParser from 'geostyler-qgis-parser';
 
 import { useState } from 'react';
-import { ConfigProvider, Form, Select } from 'antd';
+import { Form, Select } from 'antd';
 
-import { CodeEditor, GeoStylerLocale, locale as GsLocale } from 'geostyler';
+import { CodeEditor, GeoStylerContext, GeoStylerContextInterface, GeoStylerLocale, locale as GsLocale } from 'geostyler';
 
 import { Style as GsStyle } from 'geostyler-style';
 
@@ -16,7 +16,7 @@ export interface Locale extends GeoStylerLocale {
     language: string;
 }
 
-function App() {
+export const App: React.FC = () => {
     const [locale, setLocale] = useState<Locale>({
         language: 'Language',
         ...GsLocale.en_US,
@@ -90,8 +90,12 @@ function App() {
 
     const qgisStyleParser = new QgisStyleParser();
 
+    const ctx: GeoStylerContextInterface = {
+        locale
+    };
+
     return (
-        <ConfigProvider locale={locale}>
+        <GeoStylerContext.Provider value={ctx}>
             <div className="app">
                 <header className="gs-header">
                     <h1 className="app-title">
@@ -108,7 +112,6 @@ function App() {
                         <div className="code-editor-container">
                             <CodeEditor
                                 style={style}
-                                locale={locale.CodeEditor}
                                 parsers={[sldParser, qgisStyleParser, mapboxStyleParser]}
                                 defaultParser={sldParser}
                                 showCopyButton={true}
@@ -123,7 +126,6 @@ function App() {
                         <div className="code-editor-container">
                             <CodeEditor
                                 style={style}
-                                locale={locale.CodeEditor}
                                 parsers={[sldParser, qgisStyleParser, mapboxStyleParser]}
                                 defaultParser={mapboxStyleParser}
                                 showCopyButton={true}
@@ -142,7 +144,6 @@ function App() {
                             <Select
                                 defaultValue={'en'}
                                 onChange={onLangChange}
-                                showArrow={true}
                                 style={{
                                     width: '140px',
                                 }}
@@ -173,8 +174,8 @@ function App() {
                     </Form>
                 </footer>
             </div>
-        </ConfigProvider>
+        </GeoStylerContext.Provider>
     );
-}
+};
 
 export default App;
