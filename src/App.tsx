@@ -1,13 +1,13 @@
 import MapboxStyleParser from 'geostyler-mapbox-parser';
-import SLDParser from 'geostyler-sld-parser';
+import SldStyleParser from 'geostyler-sld-parser';
 import QgisStyleParser from 'geostyler-qgis-parser';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Form, Select } from 'antd';
 
 import { CodeEditor, GeoStylerContext, GeoStylerContextInterface, GeoStylerLocale, locale as GsLocale } from 'geostyler';
 
-import { Style as GsStyle } from 'geostyler-style';
+import { Style as GsStyle, StyleParser } from 'geostyler-style';
 
 import logo from './assets/images/logo.svg';
 import './assets/styles/App.scss';
@@ -77,7 +77,7 @@ export const App: React.FC = () => {
 
     const [style, setStyle] = useState(defaultStyle);
 
-    const sldParser = new SLDParser({
+    const sldParser = new SldStyleParser({
         sldVersion: '1.1.0',
         builderOptions: {
             format: true,
@@ -115,6 +115,7 @@ export const App: React.FC = () => {
                                 parsers={[sldParser, qgisStyleParser, mapboxStyleParser]}
                                 defaultParser={sldParser}
                                 showCopyButton={true}
+                                showUploadButton={true}
                                 showSaveButton={true}
                                 onStyleChange={(style: GsStyle) => {
                                     setStyle(style);
@@ -129,6 +130,7 @@ export const App: React.FC = () => {
                                 parsers={[sldParser, qgisStyleParser, mapboxStyleParser]}
                                 defaultParser={mapboxStyleParser}
                                 showCopyButton={true}
+                                showUploadButton={true}
                                 showSaveButton={true}
                                 onStyleChange={(style: GsStyle) => {
                                     setStyle(style);
