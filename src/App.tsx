@@ -2,7 +2,7 @@ import MapboxStyleParser from 'geostyler-mapbox-parser';
 import SldStyleParser from 'geostyler-sld-parser';
 import QgisStyleParser from 'geostyler-qgis-parser';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Form, Select } from 'antd';
 
 import { CodeEditor, GeoStylerContext, GeoStylerContextInterface, GeoStylerLocale, locale as GsLocale } from 'geostyler';
